@@ -3,6 +3,8 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 const User = require('../../models/user');
 
 // @test   GET api/users
@@ -48,15 +50,30 @@ async (req, res) => {
         //saves to database
         await user.save();
 
-        // return jsonwebtoken - to login right after registration
-        res.send('User Registered');
+        // return jsonwebtoken - to login right after registration, authorize routes
+        const payload = {
+            user: {
+                id: user.id
+            }
+        }
+        
+        jwt.sign(
+            payload, 
+            config.get('jwtSecret'),
+            { expiresIn: 360000 },
+            (err, token) => {
+               if(err) throw err;
+               res.json({ token });
+            } 
+        );
+
+        // res.send('User Registered');
     }
     catch(err) {
         console.log(err.message);
         res.status(500).send('Server Error')
     }    
 });
-
 
 
 module.exports = router;
