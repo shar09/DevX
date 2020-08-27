@@ -12,10 +12,24 @@ const config = require('config');
 // @desc   test
 // @access public
 
+// to get user info
 router.get("/", auth, async (req, res) => {
     try {
-        // req.user set in middleware
+        // req.user set in middleware - returns DECODED: 
+        // {
+        //     user: { id: '5f419a4ef83e2a98aa754749' },
+        //     iat: 1598134862,
+        //     exp: 1598494862
+        //   }
         const user = await User.findById(req.user.id).select('-password');
+        // returned value in user {
+        //     "_id": "5f419a4ef83e2a98aa754749",
+        //     "name": "Sharath",
+        //     "email": "sharathtelu9@gmail.com",
+        //     "avatar": "//www.gravatar.com/avatar/27e4244de4f10b638c49bd72078f666d?s=200&r=pg&d=mm",
+        //     "date": "2020-08-22T22:21:02.768Z",
+        //     "__v": 0
+        // }
         res.json(user);
     }
     catch(err) {
@@ -29,6 +43,7 @@ router.get("/", auth, async (req, res) => {
 // @desc   Authenticate User and get token
 // @access public
 
+// to login
 router.post("/", [
     check('email','Enter a valid email').isEmail(),
     check('password', 'Password is required').exists(),
