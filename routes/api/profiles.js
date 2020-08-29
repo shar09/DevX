@@ -15,7 +15,7 @@ const User = require('../../models/user');
 router.get("/me", auth, async (req, res) => {  
     try {
         const profile = await Profile.findOne({ user : req.user.id }).populate(
-          'name',
+          'user',
           ['name', 'avatar']
         ); 
         if(!profile) {
@@ -86,7 +86,7 @@ router.post("/",
         try {
             let profile = await Profile.findOne({ user: req.user.id });
             if(profile) {
-                //update
+                //if profile already exists, update
                 profile = await Profile.findOneAndUpdate(
                     { user: req.user.id },
                     { $set: profileFields },
@@ -95,7 +95,7 @@ router.post("/",
                 return res.json(profile);
             }
             
-            //create
+            //if profile not found, create
             profile = new Profile(profileFields);
 
             await profile.save();
@@ -105,7 +105,6 @@ router.post("/",
             console.log(err.message);
             res.status(500).send('Server Error');            
         }
-
     }
 );
 

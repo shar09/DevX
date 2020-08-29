@@ -68,7 +68,7 @@ async (req, res) => {
             return res.status(400).json( [{errors: "Invalid credentials"}] );
         }
 
-        // return jsonwebtoken - to login right after registration, authorize routes
+        // return jsonwebtoken - authorize routes
         const payload = {
             user: {
                 id: user.id
