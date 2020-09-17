@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const User = require('../../models/user');
 
-// @test   POST api/users
+// @route   POST api/users
 // @desc   Register User
 // @access public
 
@@ -74,6 +74,5 @@ async (req, res) => {
         res.status(500).send('Server Error')
     }    
 });
-
 
 module.exports = router;
