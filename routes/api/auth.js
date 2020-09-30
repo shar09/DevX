@@ -7,8 +7,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
-// @route   GET api/auth
-// @desc   test
+// @route  GET api/auth
+// @desc   to check if user is authorized
 // @access public
 
 // to get user info

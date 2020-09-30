@@ -4,13 +4,13 @@ const db = config.get('mongoURI');
 
 const connectDb = async () => {
     try {
-       await mongoose.connect(db, 
-       {
+        await mongoose.connect(db, 
+        {
            useNewUrlParser: true,
            useUnifiedTopology: true,
            useCreateIndex: true,
            useFindAndModify: false
-       });
+        });
        console.log('Database Connected');
     }
     catch(err) {
