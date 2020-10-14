@@ -1,5 +1,7 @@
 import { 
     GET_PROFILE,
+    GET_PROFILES,
+    GET_REPOS,
     PROFILE_ERROR,
     CLEAR_PROFILE,
     UPDATE_PROFILE
@@ -17,6 +19,13 @@ export default function(state = initialState, action) {
     const { type, payload } = action;
 
     switch(type) {
+       case GET_PROFILES:
+            return{
+                ...state,
+                profiles: payload,
+                loading: false
+            }
+
        case GET_PROFILE: 
        case UPDATE_PROFILE:
             return {
@@ -28,7 +37,8 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 error: payload,
-                loading: false
+                loading: false,
+                profile: null
             };
         case CLEAR_PROFILE:
             return {
@@ -36,7 +46,13 @@ export default function(state = initialState, action) {
                 profile: null,
                 repos: [],
                 loading: false
-            }        
+            }
+        case GET_REPOS:
+            return {
+                ...state,
+                repos: payload,
+                loading: false
+            }            
         default: return state;
     }
 }
