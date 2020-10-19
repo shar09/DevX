@@ -105,11 +105,11 @@ router.delete('/:id', auth, async (req, res) => {
     }
 });
 
-// @route  PUT api/posts/likes/:id
+// @route  PUT api/posts/like/:id
 // @desc   Add likes on posts
 // @access private
 
-router.put('/likes/:id', auth, async (req, res) => {
+router.put('/like/:id', auth, async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
         if(!post) {
@@ -125,7 +125,7 @@ router.put('/likes/:id', auth, async (req, res) => {
         
         await post.save();
 
-        res.json(post);
+        res.json(post.likes);
 
     } catch (err) {
        console.log(err.message);
@@ -133,11 +133,11 @@ router.put('/likes/:id', auth, async (req, res) => {
     }
 });
 
-// @route  DELETE api/posts/likes/:id/:user_id
+// @route  PUT api/posts/unlike/:id
 // @desc   Remove likes on posts
 // @access private
 
-router.delete('/likes/:id/:user_id', auth, async (req, res) => {
+router.put('/unlike/:id', auth, async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
         if(!post) {
@@ -150,13 +150,13 @@ router.delete('/likes/:id/:user_id', auth, async (req, res) => {
             return res.status(401).json({ msg: 'Post has not been liked'});
         }
     
-        const removeIndex = post.likes.map(like => like.user).indexOf(req.params.user_id);
+        const removeIndex = post.likes.map(like => like.user).indexOf(req.user.id);
 
         post.likes.splice(removeIndex, 1);
 
         await post.save();
     
-        res.json(post);
+        res.json(post.likes);
     } catch (err) {
         console.log(err.message);
         res.status(500).send('Server error');
@@ -191,7 +191,7 @@ router.post("/comments/:id", [ [
 
             await post.save();
 
-            res.json(post);
+            res.json(post.comments);
         } catch (err) {
             console.log(err.message);
             res.status(500).send('Server Error');
@@ -220,7 +220,7 @@ router.delete('/comments/:id/:comment_id', auth, async (req, res) => {
 
         await post.save();
     
-        res.json(post);
+        res.json(post.comments);
     } catch (err) {
         console.log(err.message);
         res.status(500).send('Server error');
