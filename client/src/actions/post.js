@@ -145,8 +145,7 @@ export const addComment = (postId, formData) => async dispatch => {
 // Delete comment
 export const deleteComment = (postId, commentId) => async dispatch => {
     try {
-        console.log(postId, commentId);
-        await axios.delete(`/api/posts/comments/${postId}${commentId}`);
+        await axios.delete(`/api/posts/comments/${postId}/${commentId}`);
         dispatch({
             type: DELETE_COMMENT,
             payload: commentId
@@ -154,7 +153,6 @@ export const deleteComment = (postId, commentId) => async dispatch => {
 
         dispatch(setAlert('Comment Deleted', 'success'));
     } catch (err) {
-        console.log(err.response);
         dispatch({
             type: POST_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status }

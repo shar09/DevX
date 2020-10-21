@@ -4,6 +4,7 @@ const axios = require('axios');
 const config = require('config');
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
+const normalize = require('normalize-url');
 
 const Profile = require('../../models/profile');
 const User = require('../../models/user');
@@ -69,7 +70,7 @@ router.post("/",
         const profileFields = {};
         profileFields.user = req.user.id;
         if(company) profileFields.company = company;
-        if(website) profileFields.website = website;
+        if(website) profileFields.website = normalize(website, { forceHttps: true });
         if(location) profileFields.location = location;
         if(status) profileFields.status = status;
         if(bio) profileFields.bio = bio;
@@ -80,8 +81,8 @@ router.post("/",
 
         // Build social fields
         profileFields.social = {};
-        if(linkedin) profileFields.social.linkedin = linkedin;
-        if(twitter) profileFields.social.twitter = twitter;
+        if(linkedin) profileFields.social.linkedin = normalize(linkedin, { forceHttps: true });
+        if(twitter) profileFields.social.twitter = normalize(twitter, { forceHttps: true });
 
         try {
             let profile = await Profile.findOne({ user: req.user.id });

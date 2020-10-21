@@ -1,5 +1,5 @@
 {
-  "name": "DevX",
+  "name": "code-devx",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -29,7 +29,8 @@
     "express-validator": "^6.3.1",
     "gravatar": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.8.10"
+    "mongoose": "^5.8.10",
+    "normalize-url": "^5.3.0"
   },
   "devDependencies": {
     "concurrently": "^5.1.0",

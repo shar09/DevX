@@ -58,13 +58,13 @@ async (req, res) => {
         // see if users exist
         let user = await User.findOne({ email });
         if(!user) {
-            return res.status(400).json( [{errors: "Invalid credentials"}] );
+            return res.status(400).json({errors:  [{msg: "Invalid credentials"}] });
         }
 
         const isMatch = await bcrypt.compare(password, user.password)
         
         if(!isMatch) {
-            return res.status(400).json( [{errors: "Invalid credentials"}] );
+            return res.status(400).json({errors:  [{msg: "Invalid credentials"}] });
         }
 
         // return jsonwebtoken - authorize routes
