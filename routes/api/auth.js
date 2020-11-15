@@ -9,7 +9,7 @@ const config = require('config');
 
 // @route  GET api/auth
 // @desc   to check if user is authorized
-// @access public
+// @access Private
 
 // to get user info
 router.get("/", auth, async (req, res) => {
@@ -40,7 +40,7 @@ router.get("/", auth, async (req, res) => {
 
 // @route  POST api/auth
 // @desc   Authenticate User and get token
-// @access public
+// @access Public
 
 // to login
 router.post("/", [

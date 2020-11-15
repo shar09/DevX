@@ -29,8 +29,8 @@ const EditProfile = ({ profile: {profile, loading }, createProfile, getCurrentPr
             skills: loading || !profile.skills ? '': profile.skills.join(','),
             bio: loading || !profile.bio ? '': profile.bio,
             githubusername: loading || !profile.githubusername ? '': profile.githubusername,
-            linkedin: loading || !profile.social.linkedin ? '': profile.social.linkedin,
-            twitter: loading || !profile.social.twitter ? '': profile.social.twitter           
+            linkedin: loading || !profile.social ? '': profile.social.linkedin,
+            twitter: loading || !profile.social ? '': profile.social.twitter           
         });
     }, [loading, getCurrentProfile]);
 
